@@ -4,30 +4,43 @@ import UserScore from "@/models/UserScore";
 
 export async function POST(req: NextRequest) {
   try {
-    const { userGithubUsername, userFullName, userScoredPoints } = await req.json();
+    const { userGithubUsername, userFullName, quizId, userScoredPoints } = await req.json();
 
-    // Validate request body
-    if (!userGithubUsername || !userFullName || typeof userScoredPoints !== "number") {
+    if (!userGithubUsername || !userFullName || !quizId || typeof userScoredPoints !== "number") {
       return NextResponse.json({ error: "Invalid request data" }, { status: 400 });
     }
 
     await connectToDatabase();
 
-    // Find if user already exists
     const existingUser = await UserScore.findOne({ userGithubUsername });
 
     if (existingUser) {
-      // Update existing user score
-      existingUser.userScoredPoints += userScoredPoints;
+      // Check if user already attempted this quiz
+      const existingAttempt = existingUser.quizAttempts.find(
+        (attempt: { quizId: string; score: number; dateAttempted: Date }) => attempt.quizId === quizId
+      );
+      
+      if (existingAttempt) {
+        return NextResponse.json({ error: "User has already attempted this quiz" }, { status: 400 });
+      }
+
+      // Add new quiz attempt and update score
+      existingUser.quizAttempts.push({ quizId, score: userScoredPoints, dateAttempted: new Date() });
+      existingUser.totalScore += userScoredPoints;
+      existingUser.lastUpdated = new Date();
       await existingUser.save();
+
       return NextResponse.json({ success: true, message: "Score updated", user: existingUser }, { status: 200 });
     } else {
       // Create a new user entry
       const newUser = await UserScore.create({
         userGithubUsername,
         userFullName,
-        userScoredPoints,
+        totalScore: userScoredPoints,
+        quizAttempts: [{ quizId, score: userScoredPoints, dateAttempted: new Date() }],
+        lastUpdated: new Date(),
       });
+
       return NextResponse.json({ success: true, message: "New user added", user: newUser }, { status: 201 });
     }
   } catch (error) {

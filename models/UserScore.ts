@@ -1,17 +1,31 @@
 import mongoose, { Schema, Document } from "mongoose";
 
-// Define the user score schema
+interface IQuizAttempt {
+  quizId: string;
+  score: number;
+  dateAttempted: Date;
+}
+
 interface IUserScore extends Document {
   userGithubUsername: string;
   userFullName: string;
-  userScoredPoints: number;
+  totalScore: number;
+  quizAttempts: IQuizAttempt[];
+  lastUpdated: Date;
 }
 
 const UserScoreSchema = new Schema<IUserScore>({
   userGithubUsername: { type: String, required: true, unique: true },
   userFullName: { type: String, required: true },
-  userScoredPoints: { type: Number, required: true, default: 0 },
+  totalScore: { type: Number, required: true, default: 0 },
+  quizAttempts: [
+    {
+      quizId: { type: String, required: true },
+      score: { type: Number, required: true },
+      dateAttempted: { type: Date, default: Date.now },
+    },
+  ],
+  lastUpdated: { type: Date, default: Date.now },
 });
 
-// Export the model
 export default mongoose.models.UserScore || mongoose.model<IUserScore>("UserScore", UserScoreSchema);
