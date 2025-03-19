@@ -1,18 +1,17 @@
 'use client';
 
-import Link from 'next/link';
 import { useState } from 'react';
 
-interface QuizStartProps {
-    setMode: (mode: string) => void;
-  }
-  
-  const ParticipantDetails: React.FC<QuizStartProps> = ({ setMode }) => {
+interface ParticipantDetailsProps {
+  setMode: (mode: string) => void;
+  setParticipantDetails: (participant: { name: string; githubId: string }) => void;
+}
 
-  const [name, setName] = useState<string>('');
-  const [githubId, setGithubId] = useState<string>('');
-  const [verified, setVerified] = useState<boolean>(false);
-  const [error, setError] = useState<string>('');
+const ParticipantDetails: React.FC<ParticipantDetailsProps> = ({ setMode, setParticipantDetails }) => {
+  const [name, setName] = useState('');
+  const [githubId, setGithubId] = useState('');
+  const [verified, setVerified] = useState(false);
+  const [error, setError] = useState('');
 
   const handleVerify = async (): Promise<void> => {
     if (!githubId.trim()) return;
@@ -24,7 +23,7 @@ interface QuizStartProps {
           "Accept": "application/vnd.github.v3+json"
         }
       });
-      
+
       if (response.ok) {
         setVerified(true);
         setError('');
@@ -41,7 +40,9 @@ interface QuizStartProps {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
     if (name && githubId && verified) {
-      alert('Form submitted successfully!');
+      setParticipantDetails({ name, githubId });
+      console.log(name, githubId)
+      setMode("quizTime");
     } else {
       alert('Please fill all fields and verify GitHub ID.');
     }
@@ -66,7 +67,7 @@ interface QuizStartProps {
           <div className="flex space-x-2">
             <input
               type="text"
-              placeholder="Github ID"
+              placeholder="GitHub ID"
               value={githubId}
               onChange={(e) => {
                 setGithubId(e.target.value);
@@ -87,17 +88,16 @@ interface QuizStartProps {
           {error && <p className="text-red-500 text-sm">{error}</p>}
 
           {/* Submit Button */}
-            <button
-            onClick={()=> setMode("quizTime")}
-                type="submit"
-                className="w-full px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white font-medium rounded-md transition"
-            >
-                Submit
-            </button>
+          <button
+            type="submit"
+            className="w-full px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white font-medium rounded-md transition"
+          >
+            Submit
+          </button>
         </form>
       </div>
     </div>
   );
-}
+};
 
-export default ParticipantDetails
+export default ParticipantDetails;

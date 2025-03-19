@@ -53,7 +53,7 @@ const QuizStart: React.FC<QuizStartProps> = ({ setMode, quizTitle, quizDescripti
         
         {/* Continue Button */}
         <div className="w-full flex justify-end mt-6">
-            <button onClick={()=> setMode("partitipantDetails")} className="px-6 py-3 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700 text-lg">Continue →</button>
+            <button onClick={()=> setMode("participantDetails")} className="px-6 py-3 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700 text-lg">Continue →</button>
         </div>
         </div>
     </div>

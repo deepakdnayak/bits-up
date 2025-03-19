@@ -16,16 +16,16 @@ const Navbar = () => {
 
                 {/* Desktop Links */}
                 <div className="hidden md:flex space-x-6">
-                    <Link href="/Quiz" className="hover:scale-110 hover:text-royalblue transition-all">
+                    <Link href="/Quiz" className="hover:scale-110 hover:text-blue-500 transition-all">
                         Quizes
                     </Link>
-                    <Link href="/LeaderBoard" className="hover:scale-110 hover:text-royalblue transition-all">
+                    <Link href="/LeaderBoard" className="hover:scale-110 hover:text-blue-500 transition-all">
                         Leaderboard
                     </Link>
-                    <Link href="/" className="hover:scale-110 hover:text-royalblue transition-all">
+                    <Link href="/" className="hover:scale-110 hover:text-blue-500 transition-all">
                         Team
                     </Link>
-                    <Link href="/" className="hover:scale-110 hover:text-royalblue transition-all">
+                    <Link href="/" className="hover:scale-110 hover:text-blue-500 transition-all">
                         About Us
                     </Link>
                 </div>
@@ -56,16 +56,16 @@ const Navbar = () => {
             {/* Mobile Links */}
             {isOpen && (
                 <div className="md:hidden text-black">
-                    <Link href="/Quiz" className="hover:scale-110 hover:text-royalblue transition-all">
+                    <Link href="/Quiz" className="block px-4 py-2 hover:text-blue-500">
                         Quizes
                     </Link>
-                    <Link href="/LeaderBoard" className="hover:scale-110 hover:text-royalblue transition-all">
+                    <Link href="/LeaderBoard" className="block px-4 py-2 hover:text-blue-500">
                         Leaderboard
                     </Link>
-                    <Link href="/" className="hover:scale-110 hover:text-royalblue transition-all">
+                    <Link href="/" className="block px-4 py-2 hover:text-blue-500">
                         Team
                     </Link>
-                    <Link href="/" className="hover:scale-110 hover:text-royalblue transition-all">
+                    <Link href="/" className="block px-4 py-2 hover:text-blue-500">
                         About Us
                     </Link>
                 </div>
