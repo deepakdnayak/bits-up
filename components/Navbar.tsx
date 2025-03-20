@@ -23,9 +23,6 @@ const Navbar = () => {
                         Leaderboard
                     </Link>
                     <Link href="/" className="hover:scale-110 hover:text-blue-500 transition-all">
-                        Team
-                    </Link>
-                    <Link href="/" className="hover:scale-110 hover:text-blue-500 transition-all">
                         About Us
                     </Link>
                 </div>
@@ -61,9 +58,6 @@ const Navbar = () => {
                     </Link>
                     <Link href="/LeaderBoard" className="block px-4 py-2 hover:text-blue-500">
                         Leaderboard
-                    </Link>
-                    <Link href="/" className="block px-4 py-2 hover:text-blue-500">
-                        Team
                     </Link>
                     <Link href="/" className="block px-4 py-2 hover:text-blue-500">
                         About Us

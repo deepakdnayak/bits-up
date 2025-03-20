@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
+import { useState } from "react";
 
 interface ParticipantDetailsProps {
   setMode: (mode: string) => void;
@@ -8,43 +8,60 @@ interface ParticipantDetailsProps {
 }
 
 const ParticipantDetails: React.FC<ParticipantDetailsProps> = ({ setMode, setParticipantDetails }) => {
-  const [name, setName] = useState('');
-  const [githubId, setGithubId] = useState('');
+  const [name, setName] = useState("");
+  const [githubId, setGithubId] = useState("");
   const [verified, setVerified] = useState(false);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
 
   const handleVerify = async (): Promise<void> => {
     if (!githubId.trim()) return;
-    
+
     try {
       const response = await fetch(`https://api.github.com/users/${githubId}`, {
         method: "GET",
         headers: {
-          "Accept": "application/vnd.github.v3+json"
-        }
+          Accept: "application/vnd.github.v3+json",
+        },
       });
 
       if (response.ok) {
         setVerified(true);
-        setError('');
+        setError("");
       } else {
         setVerified(false);
-        setError('GitHub ID not found');
+        setError("GitHub ID not found");
       }
     } catch (err) {
       setVerified(false);
-      setError('Error verifying GitHub ID');
+      setError("Error verifying GitHub ID");
     }
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault();
-    if (name && githubId && verified) {
-      setParticipantDetails({ name, githubId });
-      console.log(name, githubId)
-      setMode("quizTime");
-    } else {
-      alert('Please fill all fields and verify GitHub ID.');
+
+    if (!name || !githubId || !verified) {
+      alert("Please fill all fields and verify GitHub ID.");
+      return;
+    }
+
+    try {
+      const response = await fetch("/api/user/participant", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, githubId }),
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        setParticipantDetails({ name, githubId });
+        setMode("quizTime");
+      } else {
+        alert(data.error || "Something went wrong.");
+      }
+    } catch (err) {
+      alert("Error submitting participant details.");
     }
   };
 
@@ -72,17 +89,21 @@ const ParticipantDetails: React.FC<ParticipantDetailsProps> = ({ setMode, setPar
               onChange={(e) => {
                 setGithubId(e.target.value);
                 setVerified(false);
-                setError('');
+                setError("");
               }}
-              className={`flex-grow px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-400 ${verified ? 'border-green-500' : ''}`}
+              className={`flex-grow px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-400 ${
+                verified ? "border-green-500" : ""
+              }`}
               required
             />
             <button
               type="button"
               onClick={handleVerify}
-              className={`px-4 py-2 text-white rounded-md transition ${verified ? 'bg-green-500' : 'bg-blue-500 hover:bg-blue-600'}`}
+              className={`px-4 py-2 text-white rounded-md transition ${
+                verified ? "bg-green-500" : "bg-blue-500 hover:bg-blue-600"
+              }`}
             >
-              {verified ? '✔' : 'Verify'}
+              {verified ? "✔" : "Verify"}
             </button>
           </div>
           {error && <p className="text-red-500 text-sm">{error}</p>}
