@@ -22,7 +22,7 @@ const Navbar = () => {
                     <Link href="/LeaderBoard" className="hover:scale-110 hover:text-blue-500 transition-all">
                         Leaderboard
                     </Link>
-                    <Link href="/" className="hover:scale-110 hover:text-blue-500 transition-all">
+                    <Link href="/AboutUs" className="hover:scale-110 hover:text-blue-500 transition-all">
                         About Us
                     </Link>
                 </div>
@@ -59,7 +59,7 @@ const Navbar = () => {
                     <Link href="/LeaderBoard" className="block px-4 py-2 hover:text-blue-500">
                         Leaderboard
                     </Link>
-                    <Link href="/" className="block px-4 py-2 hover:text-blue-500">
+                    <Link href="/AboutUs" className="block px-4 py-2 hover:text-blue-500">
                         About Us
                     </Link>
                 </div>
