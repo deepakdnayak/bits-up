@@ -14,6 +14,7 @@ const quizSchema = new Schema({
   quizDescription: { type: String, required: true },
   quizDifficulty: { type: String, required: true },
   dateAdded: { type: Date, default: Date.now },
+  imageUrl: { type: String, required: true }, // ✅ New field for image URL
   quizQuestions: { type: [quizQuestionSchema], required: true },
 });
 

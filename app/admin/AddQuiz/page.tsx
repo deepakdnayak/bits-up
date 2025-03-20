@@ -2,13 +2,15 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Toaster, toast } from 'sonner'
+import { Toaster, toast } from "sonner";
+
 const AddQuiz = () => {
   const router = useRouter();
 
   const [quizCategory, setQuizCategory] = useState("");
   const [quizDescription, setQuizDescription] = useState("");
   const [quizDifficulty, setQuizDifficulty] = useState("Easy");
+  const [imageUrl, setImageUrl] = useState(""); // New Image URL state
   const [quizQuestions, setQuizQuestions] = useState(
     Array.from({ length: 10 }, () => ({
       question: "",
@@ -33,17 +35,26 @@ const AddQuiz = () => {
   };
 
   const handleSubmit = async () => {
-    if (!quizCategory || !quizDescription || !quizDifficulty) {
-      toast.error("Please fill all quiz details.");
+    if (!quizCategory || !quizDescription || !quizDifficulty || !imageUrl) {
+      toast.error("Please fill all quiz details, including the image URL.");
       return;
     }
 
-    if (quizQuestions.some(q => !q.question || !q.optionOne || !q.optionTwo || !q.optionThree || !q.optionFour)) {
+    if (!imageUrl.startsWith("http")) {
+      toast.error("Please enter a valid image URL.");
+      return;
+    }
+
+    if (
+      quizQuestions.some(
+        (q) => !q.question || !q.optionOne || !q.optionTwo || !q.optionThree || !q.optionFour
+      )
+    ) {
       toast.error("Please fill all question fields.");
       return;
     }
 
-    const quizData = { quizCategory, quizDescription, quizDifficulty, quizQuestions };
+    const quizData = { quizCategory, quizDescription, quizDifficulty, imageUrl, quizQuestions };
 
     try {
       const res = await fetch("/api/admin/quiz/add", {
@@ -58,6 +69,7 @@ const AddQuiz = () => {
         setQuizCategory("");
         setQuizDescription("");
         setQuizDifficulty("Easy");
+        setImageUrl(""); // Reset image URL field
         setQuizQuestions(
           Array.from({ length: 10 }, () => ({
             question: "",
@@ -102,6 +114,13 @@ const AddQuiz = () => {
               className="w-full p-2 border rounded"
               value={quizDescription}
               onChange={(e) => setQuizDescription(e.target.value)}
+            />
+            <input
+              type="text"
+              placeholder="Image URL"
+              className="w-full p-2 border rounded"
+              value={imageUrl}
+              onChange={(e) => setImageUrl(e.target.value)}
             />
             <select
               className="w-full p-2 border rounded"
@@ -150,7 +169,10 @@ const AddQuiz = () => {
           </div>
 
           {/* Submit Button */}
-          <button onClick={handleSubmit} className="my-6 px-6 py-2 bg-green-500 text-white rounded hover:bg-green-400 hover:scale-105 transition-transform">
+          <button
+            onClick={handleSubmit}
+            className="my-6 px-6 py-2 bg-green-500 text-white rounded hover:bg-green-400 hover:scale-105 transition-transform"
+          >
             Confirm
           </button>
         </div>

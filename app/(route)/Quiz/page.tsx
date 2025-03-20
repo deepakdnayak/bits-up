@@ -9,6 +9,7 @@ interface Quiz {
     _id: string;
     quizCategory: string;
     quizDescription: string;
+    imageUrl: string;
 }
 
 export default function Quiz() {
@@ -47,7 +48,7 @@ export default function Quiz() {
                     <div className="p-5 grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6">
                         {quizzes.map((quiz) => (
                             <div key={quiz._id} className="border shadow-xl rounded-md overflow-hidden hover:shadow-2xl transition-transform duration-300 flex flex-col min-h-full">
-                                <Image src="/image.png" width={300} height={200} alt={quiz.quizCategory} className="w-full h-[200px] object-cover" />
+                                <Image src={quiz.imageUrl} width={300} height={200} alt={quiz.quizCategory} className="w-full h-[200px] object-cover" />
                                 <div className="px-4 py-3 flex-grow">
                                     <p className="text-2xl font-bold mb-1">{quiz.quizCategory}</p>
                                     <p className="text-lg text-gray-600">{quiz.quizDescription}</p>

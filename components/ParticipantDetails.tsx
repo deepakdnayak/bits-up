@@ -12,6 +12,7 @@ const ParticipantDetails: React.FC<ParticipantDetailsProps> = ({ setMode, setPar
   const [githubId, setGithubId] = useState("");
   const [verified, setVerified] = useState(false);
   const [error, setError] = useState("");
+  const [githubProfile, setGithubProfile] = useState<{ avatar_url: string; name: string } | null>(null);
 
   const handleVerify = async (): Promise<void> => {
     if (!githubId.trim()) return;
@@ -25,15 +26,19 @@ const ParticipantDetails: React.FC<ParticipantDetailsProps> = ({ setMode, setPar
       });
 
       if (response.ok) {
+        const data = await response.json();
         setVerified(true);
         setError("");
+        setGithubProfile({ avatar_url: data.avatar_url, name: data.name || githubId });
       } else {
         setVerified(false);
         setError("GitHub ID not found");
+        setGithubProfile(null);
       }
     } catch (err) {
       setVerified(false);
       setError("Error verifying GitHub ID");
+      setGithubProfile(null);
     }
   };
 
@@ -90,6 +95,7 @@ const ParticipantDetails: React.FC<ParticipantDetailsProps> = ({ setMode, setPar
                 setGithubId(e.target.value);
                 setVerified(false);
                 setError("");
+                setGithubProfile(null);
               }}
               className={`flex-grow px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-400 ${
                 verified ? "border-green-500" : ""
@@ -107,6 +113,14 @@ const ParticipantDetails: React.FC<ParticipantDetailsProps> = ({ setMode, setPar
             </button>
           </div>
           {error && <p className="text-red-500 text-sm">{error}</p>}
+
+          {/* GitHub Profile Preview (Visible After Verification) */}
+          {verified && githubProfile && (
+            <div className="flex items-center space-x-3 p-3 bg-gray-100 rounded-md shadow-md">
+              <img src={githubProfile.avatar_url} alt="GitHub Avatar" className="w-10 h-10 rounded-full" />
+              <p className="font-medium text-gray-700">{githubProfile.name}</p>
+            </div>
+          )}
 
           {/* Submit Button */}
           <button

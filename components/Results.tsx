@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useState, useEffect } from "react";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
+import Navbar from "./Navbar";
 
 interface QuizQuestion {
   question: string;
@@ -41,6 +42,8 @@ const ResultsPage: React.FC<ResultsProps> = ({
   }, [correctAnswers, quizQuestion]);
 
   return (
+    <>
+    <Navbar />
     <div className="flex flex-col items-center justify-center min-h-screen p-6 bg-gray-100 mt-14">
       <h1 className="text-4xl font-bold mb-6">Results</h1>
 
@@ -115,6 +118,7 @@ const ResultsPage: React.FC<ResultsProps> = ({
         </Link>
       </div>
     </div>
+    </>
   );
 };
 

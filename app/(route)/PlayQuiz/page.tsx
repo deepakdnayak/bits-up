@@ -31,6 +31,7 @@ interface Quiz {
   quizDifficulty: string;
   quizQuestions: QuizQuestion[];
   dateAdded: string;
+  imageUrl: string;
 }
 
 interface Participant {
@@ -125,7 +126,7 @@ export default function PlayQuiz() {
       {mode === "quizStart" && (
         <QuizStart
           setMode={setMode}
-          quizImage="/image.png"
+          quizImage={quiz.imageUrl}
           quizTitle={quiz.quizCategory}
           quizDescription={quiz.quizDescription}
         />

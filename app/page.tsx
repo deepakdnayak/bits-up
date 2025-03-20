@@ -1,4 +1,5 @@
 import Hero from "@/components/Hero";
+import Motto from "@/components/Motto";
 import HowItWorks from "@/components/HowItWorks";
 import TrendingQuizzes from "@/components/TrendingQuizzes";
 import Info from "@/components/Info";
@@ -14,8 +15,9 @@ export default function Home() {
       <div className="">
         <Navbar />
         <Hero />
+        {/* <Motto /> */}
         <HowItWorks />
-        <TrendingQuizzes />
+        {/* <TrendingQuizzes /> */}
         <Info />
         {/* <Testimonials /> */}
         <FAQ />

@@ -5,11 +5,16 @@ import Quiz from "@/models/Quiz";
 export async function POST(req: NextRequest) {
   try {
     await connectToDatabase();
-    const { quizCategory, quizDescription, quizDifficulty, quizQuestions } = await req.json();
+    const { quizCategory, quizDescription, quizDifficulty, imageUrl, quizQuestions } = await req.json();
 
     // Validation: Check if all required fields exist
-    if (!quizCategory || !quizDescription || !quizDifficulty || !quizQuestions || !Array.isArray(quizQuestions)) {
+    if (!quizCategory || !quizDescription || !quizDifficulty || !imageUrl || !quizQuestions || !Array.isArray(quizQuestions)) {
       return NextResponse.json({ error: "Invalid input: Missing required fields" }, { status: 400 });
+    }
+
+    // Validate `imageUrl` (ensure it's a string and a valid URL)
+    if (typeof imageUrl !== "string" || !imageUrl.startsWith("http")) {
+      return NextResponse.json({ error: "Invalid image URL" }, { status: 400 });
     }
 
     // Validate each question object
@@ -26,8 +31,8 @@ export async function POST(req: NextRequest) {
       }
     }
 
-    // Create and save the quiz
-    const newQuiz = new Quiz({ quizCategory, quizDescription, quizDifficulty, quizQuestions });
+    // Create and save the quiz with imageUrl
+    const newQuiz = new Quiz({ quizCategory, quizDescription, quizDifficulty, imageUrl, quizQuestions });
     await newQuiz.save();
 
     return NextResponse.json({ success: true, message: "Quiz added successfully!" }, { status: 201 });

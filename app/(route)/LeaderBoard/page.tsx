@@ -44,8 +44,8 @@ export default function LeaderBoard() {
   return (
     <>
       <Navbar />
-      <div className="pt-16 flex flex-col items-center min-h-screen bg-gray-100 p-6">
-        <h1 className="text-4xl font-bold mb-6">Leaderboard</h1>
+      <div className="pt-24 flex flex-col items-center min-h-screen bg-gray-100 p-6">
+        <h1 className="text-4xl font-bold mb-6 text-center text-blue-600">Leaderboard</h1>
 
         {/* Search Bar */}
         <div className="w-full max-w-lg mb-4">
@@ -58,7 +58,7 @@ export default function LeaderBoard() {
           />
         </div>
 
-        {/* Leaderboard Cards */}
+        {/* Leaderboard List */}
         <div className="w-full max-w-2xl bg-white p-6 rounded-lg shadow-lg">
           {loading ? (
             <p className="text-center text-gray-500">Loading leaderboard...</p>
@@ -72,11 +72,20 @@ export default function LeaderBoard() {
                   index === 0 ? "bg-yellow-200" : "bg-white"
                 } hover:bg-gray-100 transition`}
               >
-                <span className="text-lg font-semibold">{index + 1}</span>
-                <div className="flex flex-col flex-grow ml-4">
+                {/* Profile Picture */}
+                <img
+                  src={`https://github.com/${user.userGithubUsername}.png?size=80`}
+                  alt={`${user.userFullName}'s profile`}
+                  className="h-10 w-10 rounded-full border-2 border-blue-400 mr-4"
+                />
+
+                {/* User Info */}
+                <div className="flex flex-col flex-grow">
                   <span className="font-medium text-gray-900">{user.userFullName}</span>
                   <span className="text-gray-500 text-sm">@{user.userGithubUsername}</span>
                 </div>
+
+                {/* User Score */}
                 <span className="font-semibold text-blue-600 text-lg">{user.totalScore}</span>
               </div>
             ))

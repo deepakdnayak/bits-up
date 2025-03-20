@@ -1,10 +1,5 @@
 @import "tailwindcss";
 
-html,
-body {
-  background-color: rgb(239, 237, 237);
-}
-
 @keyframes scroll {
   from {
     transform: translateX(0);

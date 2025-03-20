@@ -7,7 +7,7 @@ export async function GET(req: NextRequest) {
     await connectToDatabase();
 
     // Fetch only required fields, excluding quizQuestions
-    const quizzes = await Quiz.find({}, "quizCategory quizDescription quizDifficulty");
+    const quizzes = await Quiz.find({}, "quizCategory quizDescription quizDifficulty imageUrl");
 
     return NextResponse.json({ success: true, quizzes }, { status: 200 });
   } catch (error) {
