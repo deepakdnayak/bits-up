@@ -23,14 +23,14 @@ export const viewport = {
 export const metadata: Metadata = {
   title: "BitsUp",
   description: "BitsUp is a quiz platform where you can test your skills, challenge peers, and track your progress—all without registration. Simply enter your GitHub username and start learning!",
-  metadataBase: new URL("https://taskflowprojectmanagement.vercel.app"), // ✅ Replace with your actual domain
+  metadataBase: new URL("https://bits-up.vercel.app/"), // ✅ Replace with your actual domain
   icons: "/favicon.ico",
   keywords: ["quiz platform", "online quizzes", "aptitude tests", "skill assessment", "leaderboard", "competitive learning", "BitsUp", "coding challenges", "logic puzzles", "math quizzes", "GitHub integration", "knowledge tests", "self-improvement"],
-  authors: [{ name: "Deepak D Nayak", url: "https://taskflowprojectmanagement.vercel.app/" }],
+  authors: [{ name: "Deepak D Nayak", url: "https://bits-up.vercel.app//" }],
   openGraph: {
     title: "BitsUp",
     description: "BitsUp is a quiz platform where you can test your skills, challenge peers, and track your progress—all without registration. Simply enter your GitHub username and start learning!",
-    url: "https://taskflowprojectmanagement.vercel.app",
+    url: "https://bits-up.vercel.app/",
     siteName: "BitsUp",
     images: [
       {
