@@ -11,7 +11,7 @@ const Navbar = () => {
             <div className="container mx-auto px-4 py-3 flex justify-between items-center">
                 {/* Logo */}
                 <Link href="/" className="text-xl font-bold">
-                    BitsUp
+                    BitsUp.
                 </Link>
 
                 {/* Desktop Links */}

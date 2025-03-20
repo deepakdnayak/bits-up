@@ -148,7 +148,7 @@ function PlayQuizContent() {
 
       {mode === "results" && (
         <Results
-          quizImage="/image.png"
+          quizImage={quiz.imageUrl}
           quizTitle={quiz.quizCategory}
           quizDescription={quiz.quizDescription}
           correctAnswers={correctAnswers}

@@ -16,15 +16,19 @@ const QuizStart: React.FC<QuizStartProps> = ({ setMode, quizTitle, quizDescripti
     name: 'Sample Quiz',
     description: 'This is a sample quiz description.',
     rules: [
-      'Lorem ipsum dolor sit amet consectetur adipiscing elit. Sit ad quasi velit voluptatum nostrum atque facere doloribus consectetur.',
-      'Lorem ipsum dolor sit amet consectetur adipiscing elit. Sit ad quasi velit voluptatum nostrum atque facere doloribus consectetur.',
-      'Lorem ipsum dolor sit amet consectetur adipiscing elit. Sit ad quasi velit voluptatum nostrum atque facere doloribus consectetur.',
-    ],
+      'Each quiz consists of multiple-choice questions with four options, out of which only one is correct.',
+      'There is no time limit for answering individual questions, but the overall quiz must be completed in one session.',
+      'Once an answer is submitted, it cannot be changed.',
+      'Skipping a question is not allowed; you must select an option before proceeding.',
+      'Scores are mapped to your GitHub username and will be stored for leaderboard ranking.',
+      'Any attempt to manipulate the system or use unfair means may result in disqualification.',
+      'Admins reserve the right to add, modify, or remove quizzes at any time.',
+    ],    
     image: '/image.png',
   });
 
   return (
-    <div className="h-screen flex justify-center items-center pt-14">
+    <div className="h-screen flex justify-center items-center">
         <div className="flex flex-col rounded-xl shadow-lg max-w-5xl mx-auto p-6 bg-white border">
         {/* Quiz Info Section */}
         <div className="flex flex-col md:flex-row items-center md:items-start w-full gap-6">
@@ -46,7 +50,7 @@ const QuizStart: React.FC<QuizStartProps> = ({ setMode, quizTitle, quizDescripti
             <h3 className="text-2xl font-bold text-center">RULES</h3>
             <ul className="mt-4 space-y-3 text-gray-700 text-lg">
             {quiz.rules.map((rule, index) => (
-                <li key={index} className="text-base">{rule}</li>
+                <li key={index} className="text-base">▪️{rule}</li>
             ))}
             </ul>
         </div>
