@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import ParticipantDetails from "@/components/ParticipantDetails";
 import QuizStart from "@/components/QuizStart";
@@ -39,7 +39,7 @@ interface Participant {
   githubId: string;
 }
 
-export default function PlayQuiz() {
+function PlayQuizContent() {
   const searchParams = useSearchParams();
   const quizId = searchParams.get("quizId");
 
@@ -51,7 +51,7 @@ export default function PlayQuiz() {
   const [userAnswers, setUserAnswers] = useState<number[]>([]);
   const [correctAnswers, setCorrectAnswers] = useState<number>(0);
   const [wrongAnswers, setWrongAnswers] = useState<number>(0);
-  const [evaluatedQuestions, setEvaluatedQuestions] = useState<EvaluatedQuestion[]>([]); // Store evaluated questions
+  const [evaluatedQuestions, setEvaluatedQuestions] = useState<EvaluatedQuestion[]>([]);
 
   useEffect(() => {
     if (!quizId) {
@@ -107,8 +107,7 @@ export default function PlayQuiz() {
       if (result.success) {
         setCorrectAnswers(result.correctAnswers);
         setWrongAnswers(result.wrongAnswers);
-        setEvaluatedQuestions(result.quizQuestions); // Store evaluated questions
-        console.log(evaluatedQuestions);
+        setEvaluatedQuestions(result.quizQuestions);
       }
 
       setMode("results");
@@ -149,7 +148,7 @@ export default function PlayQuiz() {
 
       {mode === "results" && (
         <Results
-        quizImage="/image.png"
+          quizImage="/image.png"
           quizTitle={quiz.quizCategory}
           quizDescription={quiz.quizDescription}
           correctAnswers={correctAnswers}
@@ -158,5 +157,13 @@ export default function PlayQuiz() {
         />
       )}
     </div>
+  );
+}
+
+export default function PlayQuiz() {
+  return (
+    <Suspense fallback={<p>Loading...</p>}>
+      <PlayQuizContent />
+    </Suspense>
   );
 }
