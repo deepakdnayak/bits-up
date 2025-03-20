@@ -22,20 +22,20 @@ const teamMembers = [
         instagram: "https://www.instagram.com/prj004",
     },
     {
-        name: "Member 3",
-        role: "Frontend Developer",
-        image: "/admin.png",
-        linkedin: "#",
+        name: "Mahima US",
+        role: "UI/UX Designer",
+        image: "/profiles/mahima.jpg",
+        linkedin: "https://www.linkedin.com/in/mahima-u-s-21b3a425b/",
         github: "#",
-        instagram: "#",
+        instagram: "https://www.instagram.com/us_mahima22/",
     },
     {
-        name: "Member 4",
+        name: "Vaibhav Balgi",
         role: "UI/UX Designer",
-        image: "/admin.png",
-        linkedin: "#",
+        image: "/profiles/vaibhav.jpg",
+        linkedin: "https://www.linkedin.com/in/vaibhav-balgi-1a6995262/",
         github: "#",
-        instagram: "#",
+        instagram: "https://www.instagram.com/its__vaibhav__47/",
     },
     {
         name: "Member 5",
@@ -112,30 +112,30 @@ const About = () => {
 
                                     {/* Social Icons */}
                                     <div className="mt-4 flex justify-center gap-4">
-                                        <a
+                                        {member.linkedin!=="#" && <a
                                             href={member.linkedin}
                                             target="_blank"
                                             rel="noopener noreferrer"
                                             className="text-blue-500 hover:text-blue-600 transition-colors"
                                         >
                                             <FaLinkedin size={24} />
-                                        </a>
-                                        <a
+                                        </a>}
+                                        {member.github!=="#" && <a
                                             href={member.github}
                                             target="_blank"
                                             rel="noopener noreferrer"
                                             className="text-gray-700 hover:text-gray-900 transition-colors"
                                         >
                                             <FaGithub size={24} />
-                                        </a>
-                                        <a
+                                        </a>}
+                                        {member.instagram!=="#" && <a
                                             href={member.instagram}
                                             target="_blank"
                                             rel="noopener noreferrer"
                                             className="text-pink-500 hover:text-pink-600 transition-colors"
                                         >
                                             <FaInstagram size={24} />
-                                        </a>
+                                        </a>}
                                     </div>
                                 </div>
                             ))}
